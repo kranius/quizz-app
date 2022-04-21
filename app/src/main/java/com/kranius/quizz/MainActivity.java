@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /*
 List.shuffle()
@@ -51,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (name.getText().length() < 1) {
-                    disableUI();
-                } else {
+                if (nameValidation(name.getText().toString())) {
                     enableUI();
+                } else {
+                    disableUI();
                 }
             }
 
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //sharedPreferences = getSharedPreferences("scores", MODE_PRIVATE);
         String nom = sharedPreferences.getString("name", "");
         String score = sharedPreferences.getString("score", "");
 
@@ -77,6 +77,19 @@ public class MainActivity extends AppCompatActivity {
         } else {
             disableUI();
         }
+    }
+
+    public boolean nameValidation(String name) {
+        if (name.length() < 2 || 12 < name.length()) {
+            Toast.makeText(this,"Le nom doit faire entre 2 et 12 lettres",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (!name.matches("[a-zA-Z]+")) {
+         Toast.makeText(this,"Le nom doit contenir uniquement des lettres",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
 
     public void startQuizz(View view) {
