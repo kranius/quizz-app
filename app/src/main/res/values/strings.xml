@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Quizz</string>
+    <string name="txt_main_banner">Bonjour ! Veuillez saisir votre nom.</string>
+    <string name="btn_start">C\'est parti !</string>
+    <string name="hint_input_name">Votre nom ici</string>
+    <string name="img_delete_name">Delete name icon</string>
+    <string name="txt_question_title">Question 1/4</string>
+    <string name="txt_question_description">Quelle est la couleur du cheval blanc d\'Henri IV ?</string>
+    <string name="answer_one">Gris</string>
+    <string name="answer_two">Marron</string>
+    <string name="answer_three">Rose</string>
+    <string name="answer_four">Blanc</string>
+</resources>
