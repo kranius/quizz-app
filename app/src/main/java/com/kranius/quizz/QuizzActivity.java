@@ -4,8 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,10 +26,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     TextView b1, b2, b3, b4;
     TextView title, description;
 
-    private QuestionBank questionBank = DataQuizz.generateQuestions();
+    private final QuestionBank questionBank = DataQuizz.generateQuestions();
 
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +73,12 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         }
 
         new Handler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentIndex == questionBank.getTotalNumberOfQuestions()) {
-                            Log.i(TAG,"quizz ended");
-                            displayResult();
-                        } else {
-                            displayQuestionAndAnswers();
-                        }
+                () -> {
+                    if (currentIndex == questionBank.getTotalNumberOfQuestions()) {
+                        Log.i(TAG,"quizz ended");
+                        displayResult();
+                    } else {
+                        displayQuestionAndAnswers();
                     }
                 }, 2000
         );
@@ -99,29 +93,22 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         AlertDialog alert = new AlertDialog.Builder(QuizzActivity.this)
                 .setTitle("Quizz terminé")
                 .setMessage("Votre score est de : " + scorePrettyPrint)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent();
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
-                    }
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 })
                 .show();
     }
 
     private void displayQuestionAndAnswers() {
         currentIndex = questionBank.getCurrentQuestion() + 1;
-        Integer tot = questionBank.getTotalNumberOfQuestions();
+        int tot = questionBank.getTotalNumberOfQuestions();
         Question question = questionBank.getNextQuestion();
         String[] answers = question.getAnswers();
         int correct = question.getCorrectAnswer();
 
-        Log.i("display questions", currentIndex.toString());
-
-        StringBuilder sbTitle = new StringBuilder();
-        sbTitle.append(QUESTION_TITLE).append(currentIndex.toString()).append("/").append(tot.toString()).append(" :");
-        title.setText(sbTitle.toString());
+        title.setText(QUESTION_TITLE + currentIndex.toString() + "/" + tot + " :");
         description.setText(question.getQuestion());
         b1.setText(answers[0]);
         b2.setText(answers[1]);

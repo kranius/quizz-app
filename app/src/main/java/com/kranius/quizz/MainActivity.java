@@ -71,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
         String nom = sharedPreferences.getString("name","");
         String score = sharedPreferences.getString("score","");
 
-        Log.i(TAG, "NOM = " + nom);
-        Log.i(TAG, "SCORE = " + score);
-
         if (1 <= nom.length()) {
             banner.setText("Bonjour " + nom + "\nVotre dernier score est " + score);
             enableUI();
@@ -86,12 +83,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("name", name.getText().toString());
         editor.apply();
-
-        Log.i(TAG, "NOM START = " + sharedPreferences.getString("name",""));
-
-
+        Log.i(TAG,"Current user is " + name.getText());
         Intent intent = new Intent(MainActivity.this, QuizzActivity.class);
-        startActivityForResult(intent, 1);
+        startActivity(intent);
     }
 
     public void deleteName(View view) {
