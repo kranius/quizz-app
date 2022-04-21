@@ -75,7 +75,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         new Handler().postDelayed(
                 () -> {
                     if (currentIndex == questionBank.getTotalNumberOfQuestions()) {
-                        Log.i(TAG,"quizz ended");
+                        Log.i(TAG, "quizz ended");
                         displayResult();
                     } else {
                         displayQuestionAndAnswers();
@@ -90,7 +90,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         editor.putString("score", scorePrettyPrint);
         editor.apply();
 
-        AlertDialog alert = new AlertDialog.Builder(QuizzActivity.this)
+        new AlertDialog.Builder(QuizzActivity.this)
                 .setTitle("Quizz terminé")
                 .setMessage("Votre score est de : " + scorePrettyPrint)
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
