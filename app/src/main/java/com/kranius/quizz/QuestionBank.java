@@ -1,6 +1,8 @@
 package com.kranius.quizz;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class QuestionBank {
     private final List<Question> questions;
@@ -9,6 +11,7 @@ public class QuestionBank {
 
     public QuestionBank(List<Question> questions) {
         this.questions = questions;
+        Collections.shuffle(this.questions, new Random());
         totalNumberOfQuestions = this.questions.size();
     }
 
