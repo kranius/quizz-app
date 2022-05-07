@@ -1,7 +1,5 @@
 package com.kranius.quizz.questions;
 
-import com.kranius.quizz.questions.Question;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;

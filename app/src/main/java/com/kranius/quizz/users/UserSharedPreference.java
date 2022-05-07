@@ -2,11 +2,7 @@ package com.kranius.quizz.users;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
-
-import java.util.Optional;
 import java.util.UUID;
 
 public class UserSharedPreference {
