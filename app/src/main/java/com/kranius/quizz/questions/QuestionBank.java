@@ -16,9 +16,7 @@ public class QuestionBank {
     }
 
     public Question getNextQuestion() {
-        if (currentQuestion == totalNumberOfQuestions)
-            return null;
-        return questions.get(currentQuestion++);
+        return currentQuestion == totalNumberOfQuestions ? null : questions.get(currentQuestion++);
     }
 
     public int getTotalNumberOfQuestions() {

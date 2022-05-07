@@ -12,11 +12,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.kranius.quizz.R;
-import com.kranius.quizz.questions.DataQuizz;
 import com.kranius.quizz.questions.Question;
+import com.kranius.quizz.questions.QuestionAdapter;
 import com.kranius.quizz.questions.QuestionBank;
 import com.kranius.quizz.users.UserSharedPreference;
+
+import org.json.JSONArray;
 
 public class QuizzActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,9 +39,13 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     private TextView b1, b2, b3, b4;
     private TextView title, description;
 
-    private final QuestionBank questionBank = DataQuizz.generateQuestions();
+    private QuestionBank questionBank;
 
     private UserSharedPreference userSharedPreference;
+
+    private String blob = null;
+    private JSONArray json = null;
+    private boolean fetchSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +75,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
-        displayQuestionAndAnswers();
+
+        fetchRemoteQuestions();
+
     }
 
     @Override
@@ -120,5 +134,26 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         b4.setText(answers[3]);
 
         correctIndex = correct;
+    }
+
+    public void fetchRemoteQuestions() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = getString(R.string.question_server);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray jsonarray = new JSONArray(response);
+                        questionBank = QuestionAdapter.prepareQuestionsFromJSON(jsonarray);
+                        displayQuestionAndAnswers();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "json error", Toast.LENGTH_LONG).show();
+                    }
+
+                },
+                error -> Toast.makeText(getApplicationContext(), "network error", Toast.LENGTH_LONG).show());
+
+        queue.add(stringRequest);
     }
 }

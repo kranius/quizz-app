@@ -84,10 +84,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startQuizz(View view) {
-        if (currentUser.exists() == false) {
             currentUser.setName(name.getText().toString());
             userSharedPreference.saveUserName(currentUser.getName());
-        }
         Intent intent = new Intent(MainActivity.this, QuizzActivity.class);
         startActivity(intent);
     }
