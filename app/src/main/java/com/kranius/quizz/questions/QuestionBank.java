@@ -7,9 +7,10 @@ import java.util.Random;
 public class QuestionBank {
     private final List<Question> questions;
     private final int totalNumberOfQuestions;
-    private static int currentQuestion = 0;
+    private int currentQuestion;
 
     public QuestionBank(List<Question> questions) {
+        this.currentQuestion = 0;
         this.questions = questions;
         Collections.shuffle(this.questions, new Random());
         totalNumberOfQuestions = this.questions.size();

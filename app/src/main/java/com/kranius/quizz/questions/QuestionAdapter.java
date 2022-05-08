@@ -21,7 +21,7 @@ public final class QuestionAdapter {
             questions.add(question);
         }
 
-        return new QuestionBank(getRandomQuestions(questions));
+        return new QuestionBank(questions);
     }
 
     public static List<Question> getRandomQuestions(List<Question> questions) {

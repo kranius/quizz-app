@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kranius.quizz.R;
@@ -42,10 +40,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     private QuestionBank questionBank;
 
     private UserSharedPreference userSharedPreference;
-
-    private String blob = null;
-    private JSONArray json = null;
-    private boolean fetchSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

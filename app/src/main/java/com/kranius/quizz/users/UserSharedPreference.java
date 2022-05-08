@@ -23,11 +23,11 @@ public class UserSharedPreference {
     }
 
     public String getUserName() {
-        return getPreference(NAME_PREFERENCE, "");
+        return getPreference(NAME_PREFERENCE);
     }
 
     public String getUserScore() {
-        return getPreference(SCORE_PREFERENCE, "");
+        return getPreference(SCORE_PREFERENCE);
     }
 
     public void deleteUserName() {
@@ -39,11 +39,11 @@ public class UserSharedPreference {
     }
 
     private boolean isPreferenceEmpty(String preferenceName) {
-        return getPreference(preferenceName, "").isEmpty();
+        return getPreference(preferenceName).isEmpty();
     }
 
-    private String getPreference(String preferenceName, String defaultValue) {
-        return sharedPreferences.getString(preferenceName, defaultValue);
+    private String getPreference(String preferenceName) {
+        return sharedPreferences.getString(preferenceName, "");
     }
 
     private void setPreference(String preferenceName, String preferenceValue) {
@@ -67,9 +67,6 @@ public class UserSharedPreference {
     public UserSharedPreference(Context context) {
         this.context = context;
         sharedPreferences = this.context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
-    }
-
-    public UserSharedPreference() {
     }
 
     public static String getScorePreference() {
